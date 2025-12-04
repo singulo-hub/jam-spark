@@ -200,7 +200,7 @@ footer a {
     flex-direction: column;
     margin: 0;
     padding: 0;
-    gap: 1vmax;
+    gap: 0.1vmax;
 }
 
 .idea-container {
@@ -213,6 +213,7 @@ footer a {
     border-radius: 8px;
     outline-width: 4px;
     outline-style: solid;
+    outline-offset: -8px;
 }
 
 .content-container {
@@ -227,7 +228,7 @@ footer a {
     padding: 0;
     flex-shrink: 0;
     display: grid;
-    margin: calc((16px + 0.5vmax) / 2) 0 0 0;
+    margin: calc((16px + 0.5vmax) / 2) 0 0 16px;
     cursor: pointer;
 }
 
