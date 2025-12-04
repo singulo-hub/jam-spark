@@ -2,6 +2,8 @@
 
 A game idea generator to spark creativity for game jams!
 
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+
 ## About
 
 Jam Spark displays randomizable "idea cards" across four categories to help game developers brainstorm unique game concepts:
@@ -36,7 +38,3 @@ For the overall layout, I was inspired by [monochroma380's Game Idea Generator](
 
 - Icons by many contributors on [Game-icons.net](https://game-icons.net/) (CC BY 3.0)
 - Fonts by [jeti on dafont.com](https://www.dafont.com/jeti.d1589)
-
-## License
-
-MIT

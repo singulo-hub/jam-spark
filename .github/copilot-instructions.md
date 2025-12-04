@@ -10,7 +10,8 @@ Jam Spark is a **game idea generator** built with vanilla JavaScript, HTML, and 
 index.html          → Main HTML layout
 styles.css          → All styles
 app.js              → Main application logic (IdeasContainer class, IdeaService)
-data/*.js           → Static idea data files (ES modules)
+data/               → Static idea data files (ES modules)
+libs/               → Third-party assets (fonts, icons)
 ```
 
 ### Key Components
@@ -29,7 +30,7 @@ Each idea object has:
 }
 ```
 
-### Data Files (js/data/)
+### Data Files (data/)
 ES module exports with idea arrays:
 - `goals.js`, `themes.js`, `settings.js`, `wildcards.js` - Each contains 25-100 idea entries
 - Icons reference SVG paths under `libs/game-icons.net/{artist}/`
