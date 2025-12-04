@@ -1,29 +1,42 @@
-# Game Complex
-This is a game idea generator. I liked some of the other game idea generators I searched for online, but I felt like I could change the ideas that were generated to better suit what I think of when I am brainstorming.
+# Jam Spark
 
-I used Angular to make this project as I use it for work and I wanted to explore some areas I don't normally get to at work. Initially this project was in Godot 3.5.1 but I was having trouble getting the font scaling to work right at smaller resolutions. Instead of hosting the Godot project on itch.io, I decided to host it here on GitHub Pages with Angular.
+A game idea generator to spark creativity for game jams!
 
-## Categories
-The categories are Themes, Goals, Settings, and Wildcards.
+## About
 
-Themes implies how a player's goals tie into broader narrative themes.
+Jam Spark displays randomizable "idea cards" across four categories to help game developers brainstorm unique game concepts:
 
-Goals give a clear direction for the player.
+- **Themes**: How a player's goals tie into broader narrative themes
+- **Goals**: Clear direction for the player
+- **Settings**: Features of the surrounding world (generates two for interesting combinations)
+- **Wildcards**: Special modifiers inspired by the [Godot Wild Jam](https://godotwildjam.com/)
 
-Settings determine the features of the surrounding world. I decided to generate two at a time because I kept getting interesting combinations you don't normally see, which allowed my creative mind to rationalize why medieval and modern ideas might belong together for example. Renaissance fair, anyone?
+I decided to generate two settings at a time because I kept getting interesting combinations you don't normally see, which allowed my creative mind to rationalize why medieval and modern ideas might belong together. Renaissance fair, anyone?
 
-Lastly, I absolutely loved the idea of Wildcards from the [Godot Wild Jam](https://godotwildjam.com/). They can potentially help make an idea stand out.
+## How to Use
 
-## Layout
-For the overall layout of the page, I really liked how [monochroma380's Game Idea Generator](https://monochroma380.itch.io/game-idea-generator) looked and felt. I wanted to incorporate parts of its design in combination with my original idea for this project, which was to use cards. Below is a prototype I built:
+1. **Click the title** to randomize all categories at once
+2. **Click a category header** to randomize just that category
+3. **Click an individual idea** to swap it for a new one
+4. **Click the lock icon** to keep ideas you like
 
-![image](https://user-images.githubusercontent.com/47376325/232179513-79b6e7dc-860a-4dd8-a653-936bcda84151.png)
+## Running Locally
 
-During testing, since the cards were stacked on top of each other, I had to click to move them in order to see the icons and text, which hampered the overall brainstorming process. The cards were really nice to look at though so maybe I will be able to use them for a future project.
+This is a vanilla JavaScript project - no build step required. Just serve the files with any static server.
+
+I like to use the Live Server extension in VS Code. It'll open up http://localhost:5500/
+
+## History
+
+Initially this project was in Godot 3.5.1 but I was having trouble getting the font scaling to work right at smaller resolutions. It was then rebuilt in Angular, and later converted to vanilla JavaScript for simplicity.
+
+For the overall layout, I was inspired by [monochroma380's Game Idea Generator](https://monochroma380.itch.io/game-idea-generator).
 
 ## Credits
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.2.
 
-Icons were from [Game-icons.net](https://game-icons.net/) by many contributors.
+- Icons by many contributors on [Game-icons.net](https://game-icons.net/) (CC BY 3.0)
+- Fonts by [jeti on dafont.com](https://www.dafont.com/jeti.d1589)
 
-Fonts were by [jeti on dafont.com](https://www.dafont.com/jeti.d1589).
+## License
+
+MIT

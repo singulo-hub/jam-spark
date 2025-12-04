@@ -1,0 +1,306 @@
+/* Fonts */
+@font-face {
+    font-family: enter-command;
+    src: url(libs/dafonts.com/EnterCommand.ttf);
+}
+
+@font-face {
+    font-family: enter-command-bold;
+    src: url(libs/dafonts.com/EnterCommand-Bold.ttf);
+}
+
+@font-face {
+    font-family: enter-command-italic;
+    src: url(libs/dafonts.com/EnterCommand-Italic.ttf);
+}
+
+/* Global Styles */
+* {
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+    background-color: rgb(30, 22, 34);
+}
+
+body {
+    margin: 0;
+    height: 100%;
+}
+
+h1 {
+    font-family: enter-command-bold;
+    font-size: calc(32px + 0.5vmax);
+    color: white;
+}
+
+h2 {
+    font-family: enter-command-bold;
+    font-size: calc(24px + 0.5vmax);
+    color: white;
+}
+
+h3 {
+    font-family: enter-command;
+    font-size: calc(16px + 0.5vmax);
+    color: white;
+}
+
+p {
+    font-family: enter-command-italic;
+    font-size: calc(12px + 0.5vmax);
+    color: white;
+    opacity: 0.5;
+}
+
+/* Color Filters for Icons */
+.setting-filter {
+    filter: invert(61%) sepia(48%) saturate(414%) hue-rotate(144deg) brightness(125%) contrast(91%);
+}
+
+.theme-filter {
+    filter: invert(58%) sepia(9%) saturate(1688%) hue-rotate(268deg) brightness(125%) contrast(92%);
+}
+
+.goal-filter {
+    filter: invert(91%) sepia(16%) saturate(2210%) hue-rotate(318deg) brightness(99%) contrast(92%);
+}
+
+.wildcard-filter {
+    filter: invert(84%) sepia(19%) saturate(538%) hue-rotate(67deg) brightness(86%) contrast(112%);
+}
+
+/* Color Classes for Text */
+.theme-color {
+    color: #b69bc6;
+}
+
+.goal-color {
+    color: #f3b25e;
+}
+
+.setting-color {
+    color: #8cd4ca;
+}
+
+.wildcard-color {
+    color: #9cbd67;
+}
+
+/* App Component Styles */
+.content {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.randomize-button {
+    margin: 1vmax auto;
+    position: relative;
+    background-color: transparent;
+    border: 0;
+    font-family: enter-command-bold;
+    font-size: calc(32px + 0.5vmax);
+    padding: 0;
+    cursor: pointer;
+    width: 100%;
+}
+
+.title-container {
+    display: flex;
+    justify-content: center;
+}
+
+.title-container img {
+    filter: brightness(0) saturate(100%) invert(95%) sepia(100%) saturate(20%) hue-rotate(326deg) brightness(106%) contrast(105%);
+    width: calc(8px + 1vmax);
+    margin-right: 10px;
+}
+
+.title {
+    text-align: center;
+    margin: 0;
+}
+
+.subtitle {
+    text-align: center;
+    margin: 0;
+}
+
+.instructions {
+    text-align: center;
+    margin: 0 0 20px 0;
+}
+
+.idea-types-container {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+.idea-types-group {
+    width: calc(300px + 20vmax);
+}
+
+.ideas-container {
+    flex-grow: 1;
+    margin: 0 0 1vmax 0;
+}
+
+@media only screen and (max-width: 768px) {
+    .idea-types-container {
+        flex-direction: column;
+        margin: 0 auto;
+        justify-content: start;
+    }
+}
+
+footer {
+    margin: 0;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    flex-direction: column;
+}
+
+footer p {
+    margin: 0;
+    text-align: center;
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Ideas Container Styles */
+.ideas-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    margin: 0 0 1vmax 0;
+}
+
+.ideas-button img {
+    width: calc(4px + 1vmax);
+    margin-right: 10px;
+}
+
+.ideas-button h2 {
+    margin: 0;
+}
+
+.ideas-list {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    gap: 1vmax;
+}
+
+.idea-container {
+    list-style-type: none;
+    margin: 0;
+}
+
+/* Idea Card Styles */
+.locked-border {
+    border-radius: 8px;
+    outline-width: 4px;
+    outline-style: solid;
+}
+
+.content-container {
+    display: flex;
+    padding: 0.5vmax;
+}
+
+.lock-button {
+    width: calc(16px + 0.5vmax);
+    background-color: transparent;
+    border: 0;
+    padding: 0;
+    flex-shrink: 0;
+    display: grid;
+    margin: calc((16px + 0.5vmax) / 2) 0 0 0;
+    cursor: pointer;
+}
+
+.lock-icon {
+    width: calc(16px + 0.5vmax);
+    opacity: 0.5;
+}
+
+.lock-icon.locked {
+    animation: lock 0.5s ease-in;
+    opacity: 1;
+}
+
+.lock-icon.unlocked {
+    animation: unlock 0.5s ease-out;
+    opacity: 0.5;
+}
+
+@keyframes lock {
+    0% { rotate: 0deg; }
+    20% { rotate: 20deg; }
+    40% { rotate: -15deg; }
+    60% { rotate: 10deg; }
+    80% { rotate: -5deg; }
+    100% { rotate: 0deg; }
+}
+
+@keyframes unlock {
+    0% { rotate: 0deg; }
+    20% { rotate: -20deg; }
+    40% { rotate: 15deg; }
+    60% { rotate: -10deg; }
+    80% { rotate: 5deg; }
+    100% { rotate: 0deg; }
+}
+
+.discard-button {
+    display: flex;
+    background-color: transparent;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+}
+
+.text-container h3 {
+    text-align: left;
+    margin: 0;
+}
+
+.text-container p {
+    text-align: left;
+    margin: 0;
+}
+
+.icon-container {
+    display: flex;
+    position: relative;
+    width: calc(32px + 1vmax);
+    height: calc(32px + 1vmax);
+    margin: 0 calc(16px + 1vmax) 0 calc(8px + 1vmax);
+    flex-shrink: 0;
+}
+
+.icon-container .icon {
+    position: absolute;
+    width: calc(32px + 1vmax);
+    transition: opacity 2s ease-in-out;
+}
+
+.icon-container .icon.faded-out {
+    opacity: 0;
+}
+
+.icon-container .icon.faded-in {
+    opacity: 1;
+}

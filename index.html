@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jam Spark - A Game Idea Generator</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+    <div class="content">
+        <button class="randomize-button" id="randomize-all" aria-label="Randomize all">
+            <div class="title-container">
+                <img src="libs/game-icons.net/delapouite/perspective-dice-six-faces-random.svg" draggable="false" alt="Random dice">
+                <h1 class="title">JAM SPARK</h1>
+            </div>
+            <p class="subtitle">A Game Idea Generator by Singulo</p>
+        </button>
+        <p class="instructions">Click the title to randomize all. Click the categories to randomize that category. Click an individual idea to randomize it. Lock the ones you like!</p>
+        
+        <div class="idea-types-container">
+            <div class="idea-types-group">
+                <div class="ideas-container" id="themes-container" data-category="Themes" data-amount="1">
+                    <button class="ideas-button">
+                        <img class="theme-filter" src="libs/game-icons.net/lorc/light-bulb.svg" draggable="false" alt="Theme icon">
+                        <h2 class="theme-color">THEMES</h2>
+                    </button>
+                    <ul class="ideas-list"></ul>
+                </div>
+                <div class="ideas-container" id="settings-container" data-category="Settings" data-amount="2">
+                    <button class="ideas-button">
+                        <img class="setting-filter" src="libs/game-icons.net/delapouite/horizon-road.svg" draggable="false" alt="Setting icon">
+                        <h2 class="setting-color">SETTINGS</h2>
+                    </button>
+                    <ul class="ideas-list"></ul>
+                </div>
+            </div>
+            <div class="idea-types-group">
+                <div class="ideas-container" id="goals-container" data-category="Goals" data-amount="1">
+                    <button class="ideas-button">
+                        <img class="goal-filter" src="libs/game-icons.net/delapouite/stairs-goal.svg" draggable="false" alt="Goal icon">
+                        <h2 class="goal-color">GOALS</h2>
+                    </button>
+                    <ul class="ideas-list"></ul>
+                </div>
+                <div class="ideas-container" id="wildcards-container" data-category="Wildcards" data-amount="3">
+                    <button class="ideas-button">
+                        <img class="wildcard-filter" src="libs/game-icons.net/faithtoken/card-random.svg" draggable="false" alt="Wildcard icon">
+                        <h2 class="wildcard-color">WILDCARDS</h2>
+                    </button>
+                    <ul class="ideas-list"></ul>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Icons by many contributors on <a href="https://game-icons.net/">Game-icons.net</a>. Font is by <a href="https://www.dafont.com/jeti.d1589">jeti on dafont.com</a>.</p>
+        </footer>
+    </div>
+
+    <script type="module" src="data/themes.js"></script>
+    <script type="module" src="data/goals.js"></script>
+    <script type="module" src="data/settings.js"></script>
+    <script type="module" src="data/wildcards.js"></script>
+    <script type="module" src="app.js"></script>
+</body>
+</html>

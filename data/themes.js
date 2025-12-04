@@ -1,9 +1,13 @@
-import { IIdea } from "../models/idea";
-import { ThemeType } from "../models/idea-types/theme";
+// Idea Types
+export const themeType = {
+    typeName: 'Themes',
+    description: 'How a player\'s goals tie into broader narrative themes.',
+    backgroundColor: '#3d2d4d',
+    iconColor: '#b69bc6'
+};
 
-export let themeType = new ThemeType();
-
-export const THEMES: IIdea[] = [
+// Theme Ideas
+export const THEMES = [
     {
         ideaName: 'Beauty',
         description: 'The world is beautiful.',

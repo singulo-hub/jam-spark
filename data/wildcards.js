@@ -1,9 +1,13 @@
-import { IIdea } from "../models/idea";
-import { WildcardType } from "../models/idea-types/wildcard";
+// Idea Types
+export const wildcardType = {
+    typeName: 'Wildcards',
+    description: 'Special modifiers to make ideas stand out.',
+    backgroundColor: '#3d4d2d',
+    iconColor: '#9cbd67'
+};
 
-export let wildcardType = new WildcardType();
-
-export const WILDCARDS: IIdea[] = [
+// Wildcard Ideas
+export const WILDCARDS = [
     {
         ideaName: 'Arcade',
         description: 'Include a small mini-game.',
@@ -926,18 +930,6 @@ export const WILDCARDS: IIdea[] = [
             '/darkzaitzev/chameleon-glyph.svg',
             '/delapouite/transform.svg',
             '/caro-asercion/frog-mouth-helm.svg'
-        ]
-    },
-    {
-        ideaName: 'Fast Travel',
-        description: "Travel quickly at the press of a button.",
-        ideaType: wildcardType,
-        icons: [ 
-            '/lorc/journey.svg',
-            '/delapouite/steam-locomotive.svg',
-            '/delapouite/mini-submarine.svg',
-            '/delapouite/star-gate.svg',
-            '/delapouite/old-wagon.svg'
         ]
     },
     {

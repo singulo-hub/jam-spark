@@ -1,9 +1,13 @@
-import { IIdea } from "../models/idea";
-import { GoalType } from "../models/idea-types/goal";
+// Idea Types
+export const goalType = {
+    typeName: 'Goals',
+    description: 'Ultimate task for the player to achieve.',
+    backgroundColor: '#8D360F',
+    iconColor: '#f3b25e'
+};
 
-export let goalType = new GoalType();
-
-export const GOALS: IIdea[] = [
+// Goal Ideas
+export const GOALS = [
     {
         ideaName: 'Collect',
         description: 'Complete your collection!',

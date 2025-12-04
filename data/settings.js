@@ -1,9 +1,13 @@
-import { IIdea } from "../models/idea";
-import { SettingType } from "../models/idea-types/setting";
+// Idea Types
+export const settingType = {
+    typeName: 'Settings',
+    description: 'Determine the features of the surrounding world.',
+    backgroundColor: '#1a4a4a',
+    iconColor: '#8cd4ca'
+};
 
-export let settingType = new SettingType();
-
-export const SETTINGS: IIdea[] = [
+// Setting Ideas
+export const SETTINGS = [
     {
         ideaName: 'A E S T H E T I C',
         description: "Nostalgic 80's elements celebrating a time past.",
