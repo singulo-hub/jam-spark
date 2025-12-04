@@ -112,7 +112,7 @@ class IdeasContainer {
         li.innerHTML = `
             <div class="content-container" style="outline-color: ${idea.ideaType.iconColor}">
                 <button class="clear-button" aria-label="Clear and search">
-                    <img src="libs/game-icons.net/lorc/cross-mark.svg" draggable="false" alt="Clear">
+                    <img src="libs/game-icons.net/lorc/magnifying-glass.svg" draggable="false" alt="Search">
                 </button>
                 <button class="lock-button" aria-label="Lock idea">
                     <img class="lock-icon ${filterClass}" src="libs/game-icons.net/delapouite/padlock-open.svg" draggable="false" alt="Lock">
@@ -225,28 +225,24 @@ class IdeasContainer {
         const filterClass = getFilterClass(this.category);
         const colorClass = getColorClass(this.category);
         
-        // Clear any existing animation interval for this index
-        if (this.iconAnimationIntervals[index]) {
-            clearInterval(this.iconAnimationIntervals[index]);
+        // Check if search is already showing for this index
+        const existingSearch = this.ideaElements[index]?.querySelector('.search-container');
+        if (existingSearch) {
+            existingSearch.remove();
+            return;
         }
         
-        const li = document.createElement('li');
-        li.className = 'idea-container';
-        li.innerHTML = `
-            <div class="search-container">
-                <div class="search-input-wrapper">
-                    <input type="text" class="search-input" placeholder="Search for an idea..." autofocus>
-                    <button class="cancel-search-button" aria-label="Cancel search">
-                        <img src="libs/game-icons.net/lorc/cross-mark.svg" draggable="false" alt="Cancel">
-                    </button>
-                </div>
-                <div class="search-results"></div>
+        const searchDiv = document.createElement('div');
+        searchDiv.className = 'search-container';
+        searchDiv.innerHTML = `
+            <div class="search-input-wrapper">
+                <input type="text" class="search-input" placeholder="Search for an idea..." autofocus>
             </div>
+            <div class="search-results"></div>
         `;
         
-        const searchInput = li.querySelector('.search-input');
-        const cancelButton = li.querySelector('.cancel-search-button');
-        const searchResults = li.querySelector('.search-results');
+        const searchInput = searchDiv.querySelector('.search-input');
+        const searchResults = searchDiv.querySelector('.search-results');
         
         // Show initial results (all ideas)
         this.updateSearchResults(searchResults, '', index, filterClass, colorClass);
@@ -255,15 +251,18 @@ class IdeasContainer {
             this.updateSearchResults(searchResults, e.target.value, index, filterClass, colorClass);
         });
         
-        cancelButton.addEventListener('click', () => {
-            this.renderIdea(index);
-        });
+        // Click outside to close
+        const closeOnClickOutside = (e) => {
+            if (!searchDiv.contains(e.target) && !e.target.closest('.clear-button')) {
+                searchDiv.remove();
+                document.removeEventListener('click', closeOnClickOutside);
+            }
+        };
+        setTimeout(() => document.addEventListener('click', closeOnClickOutside), 0);
         
-        // Replace element
-        if (this.ideaElements[index]) {
-            this.listElement.replaceChild(li, this.ideaElements[index]);
-        }
-        this.ideaElements[index] = li;
+        // Append to content-container (positioned relative to it)
+        const contentContainer = this.ideaElements[index].querySelector('.content-container');
+        contentContainer.appendChild(searchDiv);
         
         // Focus the input
         searchInput.focus();
@@ -280,17 +279,19 @@ class IdeasContainer {
                 idea.description.toLowerCase().includes(normalizedQuery)
             );
         
-        // Limit to 10 results
-        const limitedResults = filteredIdeas.slice(0, 10);
+        // Sort alphabetically by idea name
+        const sortedIdeas = [...filteredIdeas].sort((a, b) => 
+            a.ideaName.localeCompare(b.ideaName)
+        );
         
         container.innerHTML = '';
         
-        if (limitedResults.length === 0) {
+        if (sortedIdeas.length === 0) {
             container.innerHTML = '<div class="search-no-results">No ideas found</div>';
             return;
         }
         
-        limitedResults.forEach(idea => {
+        sortedIdeas.forEach(idea => {
             const button = document.createElement('button');
             button.className = 'search-result-item';
             button.innerHTML = `
@@ -305,6 +306,12 @@ class IdeasContainer {
     }
     
     selectIdea(index, idea) {
+        // Remove the search container
+        const searchContainer = this.ideaElements[index]?.querySelector('.search-container');
+        if (searchContainer) {
+            searchContainer.remove();
+        }
+        
         // Remove the selected idea from the deck if it's there
         const deckIndex = this.ideas.findIndex(i => i.ideaName === idea.ideaName);
         if (deckIndex !== -1) {

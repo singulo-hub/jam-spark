@@ -308,7 +308,7 @@ footer a {
     right: 4px;
     width: calc(16px + 0.5vmax);
     height: calc(16px + 0.5vmax);
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: transparent;
     border: 0;
     border-radius: 4px;
     padding: 2px;
@@ -344,9 +344,15 @@ footer a {
 
 /* Search Container Styles */
 .search-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 280px;
     padding: 0.5vmax;
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: rgb(45, 35, 50);
     border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    z-index: 100;
 }
 
 .search-input-wrapper {
