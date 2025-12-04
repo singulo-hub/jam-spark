@@ -55,6 +55,7 @@ class IdeasContainer {
         this.category = containerElement.dataset.category;
         this.amount = parseInt(containerElement.dataset.amount, 10);
         this.ideas = [];
+        this.allIdeas = []; // Keep a copy of all ideas for searching
         this.activeIdeas = [];
         this.lockedIdeas = [];
         this.ideaElements = [];
@@ -68,7 +69,8 @@ class IdeasContainer {
     
     init() {
         // Load and shuffle ideas
-        this.ideas = shuffle(IdeaService.getIdeas(this.category));
+        this.allIdeas = IdeaService.getIdeas(this.category);
+        this.ideas = shuffle([...this.allIdeas]);
         
         // Initialize locked array
         this.lockedIdeas = new Array(this.amount).fill(false);
@@ -109,6 +111,9 @@ class IdeasContainer {
         li.className = 'idea-container';
         li.innerHTML = `
             <div class="content-container" style="outline-color: ${idea.ideaType.iconColor}">
+                <button class="clear-button" aria-label="Clear and search">
+                    <img src="libs/game-icons.net/lorc/cross-mark.svg" draggable="false" alt="Clear">
+                </button>
                 <button class="lock-button" aria-label="Lock idea">
                     <img class="lock-icon ${filterClass}" src="libs/game-icons.net/delapouite/padlock-open.svg" draggable="false" alt="Lock">
                 </button>
@@ -126,11 +131,16 @@ class IdeasContainer {
         `;
         
         // Setup event listeners
+        const clearButton = li.querySelector('.clear-button');
         const lockButton = li.querySelector('.lock-button');
         const discardButton = li.querySelector('.discard-button');
         const lockIcon = li.querySelector('.lock-icon');
         const contentContainer = li.querySelector('.content-container');
         const icons = li.querySelectorAll('.icon');
+        
+        clearButton.addEventListener('click', () => {
+            this.showSearch(index);
+        });
         
         lockButton.addEventListener('click', () => {
             this.lockedIdeas[index] = !this.lockedIdeas[index];
@@ -209,6 +219,110 @@ class IdeasContainer {
                 this.discardIdea(i);
             }
         }
+    }
+    
+    showSearch(index) {
+        const filterClass = getFilterClass(this.category);
+        const colorClass = getColorClass(this.category);
+        
+        // Clear any existing animation interval for this index
+        if (this.iconAnimationIntervals[index]) {
+            clearInterval(this.iconAnimationIntervals[index]);
+        }
+        
+        const li = document.createElement('li');
+        li.className = 'idea-container';
+        li.innerHTML = `
+            <div class="search-container">
+                <div class="search-input-wrapper">
+                    <input type="text" class="search-input" placeholder="Search for an idea..." autofocus>
+                    <button class="cancel-search-button" aria-label="Cancel search">
+                        <img src="libs/game-icons.net/lorc/cross-mark.svg" draggable="false" alt="Cancel">
+                    </button>
+                </div>
+                <div class="search-results"></div>
+            </div>
+        `;
+        
+        const searchInput = li.querySelector('.search-input');
+        const cancelButton = li.querySelector('.cancel-search-button');
+        const searchResults = li.querySelector('.search-results');
+        
+        // Show initial results (all ideas)
+        this.updateSearchResults(searchResults, '', index, filterClass, colorClass);
+        
+        searchInput.addEventListener('input', (e) => {
+            this.updateSearchResults(searchResults, e.target.value, index, filterClass, colorClass);
+        });
+        
+        cancelButton.addEventListener('click', () => {
+            this.renderIdea(index);
+        });
+        
+        // Replace element
+        if (this.ideaElements[index]) {
+            this.listElement.replaceChild(li, this.ideaElements[index]);
+        }
+        this.ideaElements[index] = li;
+        
+        // Focus the input
+        searchInput.focus();
+    }
+    
+    updateSearchResults(container, query, index, filterClass, colorClass) {
+        const normalizedQuery = query.toLowerCase().trim();
+        
+        // Filter ideas based on query
+        const filteredIdeas = normalizedQuery === '' 
+            ? this.allIdeas 
+            : this.allIdeas.filter(idea => 
+                idea.ideaName.toLowerCase().includes(normalizedQuery) ||
+                idea.description.toLowerCase().includes(normalizedQuery)
+            );
+        
+        // Limit to 10 results
+        const limitedResults = filteredIdeas.slice(0, 10);
+        
+        container.innerHTML = '';
+        
+        if (limitedResults.length === 0) {
+            container.innerHTML = '<div class="search-no-results">No ideas found</div>';
+            return;
+        }
+        
+        limitedResults.forEach(idea => {
+            const button = document.createElement('button');
+            button.className = 'search-result-item';
+            button.innerHTML = `
+                <img class="${filterClass}" src="libs/game-icons.net${idea.icons[0]}" draggable="false" alt="Idea icon">
+                <span class="${colorClass}">${idea.ideaName.toUpperCase()}</span>
+            `;
+            button.addEventListener('click', () => {
+                this.selectIdea(index, idea);
+            });
+            container.appendChild(button);
+        });
+    }
+    
+    selectIdea(index, idea) {
+        // Remove the selected idea from the deck if it's there
+        const deckIndex = this.ideas.findIndex(i => i.ideaName === idea.ideaName);
+        if (deckIndex !== -1) {
+            this.ideas.splice(deckIndex, 1);
+        }
+        
+        // Put the old active idea back in the deck if there was one
+        const oldIdea = this.activeIdeas[index];
+        if (oldIdea && oldIdea.ideaName !== idea.ideaName) {
+            this.ideas.unshift(oldIdea);
+        }
+        
+        // Set the selected idea as active
+        this.activeIdeas[index] = idea;
+        this.lockedIdeas[index] = false;
+        
+        // Render the idea
+        this.renderIdea(index);
     }
 }
 
